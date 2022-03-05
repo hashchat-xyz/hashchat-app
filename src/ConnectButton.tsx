@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { useViewerConnection } from "@self.id/react";
-import { EthereumAuthProvider } from "@self.id/web";
+//import { EthereumAuthProvider } from '@self.id/web';
+import { EthereumAuthProvider } from '@3id/connect';
 import { useEffect } from "react";
 
 async function createAuthProvider() {

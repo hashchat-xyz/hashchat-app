@@ -1,3 +1,22 @@
+# Hashchat App!
+
+React app for connecting with ceramic network via lit protocol.
+
+makes EXTENSIVE use of this example:
+https://github.com/LIT-Protocol/CeramicIntegrationExample
+
+and
+
+https://github.com/LIT-Protocol/CeramicIntegration
+
+
+[Full ceramic docs](https://developers.ceramic.network/)
+[Full Lit Protocol docs](https://developer.litprotocol.com/docs/intro/)
+
+
+
+# Original README from create-react-app world
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

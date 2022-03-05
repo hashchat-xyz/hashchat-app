@@ -1,8 +1,7 @@
-import React from 'react';
 import './App.css';
 import { Integration } from 'lit-ceramic-sdk';
-
-
+import { useEffect, useState } from "react";
+import ConnectButton from "./ConnectButton";
 
 function App() {
   let litCeramicIntegration = new Integration('https://ceramic-clay.3boxlabs.com', 'polygon')
@@ -73,13 +72,34 @@ function App() {
       .encryptAndWrite(stringToEncrypt, accessControlConditions)
       .then((value: string | String) => updateStreamID(value))
     console.log(response)
-  })
+  });
+  const [selfID, setSelfID] = useState(null);
+  const [setShowFriend] = useState("");
+  const [selfDIDClient, setSelfDIDClient] = useState("");
+  const [selfCeramicClient, setSelfCeramicClient] = useState("");
+
+
+  useEffect(() => {
+    if (selfID) {
+      setSelfDIDClient(selfID.did);
+      setSelfCeramicClient(selfID.client.ceramic);
+    }
+  }, [selfID]);
+
+  useEffect(() => {
+    if (selfDIDClient) {
+      console.log("selfDIDClient", selfDIDClient);
+    }
+    if (selfCeramicClient) {
+      console.log("selfCeramicClient", selfCeramicClient);
+    }
+  }, [selfDIDClient, selfCeramicClient]);
+
 
   return (
     <div className="App">
       <header className="App-header">
-       
-       bleh.
+        <ConnectButton setSelfID={setSelfID} />
       </header>
     </div>
   );
