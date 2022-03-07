@@ -15,7 +15,7 @@ https://github.com/LIT-Protocol/CeramicIntegration
 
 
 
-# Original README from create-react-app world
+# Original README from webpack template
 
 
 # Basic Webpack template for Self.ID with TypeScript
