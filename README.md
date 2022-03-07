@@ -1,3 +1,23 @@
+# Hashchat App!
+
+React app for connecting with ceramic network via lit protocol.
+
+makes EXTENSIVE use of this example:
+https://github.com/LIT-Protocol/CeramicIntegrationExample
+
+and
+
+https://github.com/LIT-Protocol/CeramicIntegration
+
+
+[Full ceramic docs](https://developers.ceramic.network/)
+[Full Lit Protocol docs](https://developer.litprotocol.com/docs/intro/)
+
+
+
+# Original README from create-react-app world
+
+
 # Basic Webpack template for Self.ID with TypeScript
 
 Using the [Self.ID Framework](https://developers.ceramic.network/tools/self-id/framework/) with [Webpack](https://webpack.js.org/) and [TypeScript](https://www.typescriptlang.org/), using [SWC](https://swc.rs/) for compilation.
