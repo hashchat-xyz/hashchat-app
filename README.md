@@ -15,24 +15,10 @@ https://github.com/LIT-Protocol/CeramicIntegration
 
 
 
-# Original README from webpack template
-
-
-# Basic Webpack template for Self.ID with TypeScript
-
-Using the [Self.ID Framework](https://developers.ceramic.network/tools/self-id/framework/) with [Webpack](https://webpack.js.org/) and [TypeScript](https://www.typescriptlang.org/), using [SWC](https://swc.rs/) for compilation.
 
 ## Getting Started
 
-### 1. Copy this template
-
-```sh
-npx degit ceramicstudio/self.id/templates/webpack-basic-typescript my-selfid-app
-```
-
-Replace `my-selfid-app` by the folder name you want and access it once installed.
-
-### 2. Install dependencies
+- Clone the repo
 
 In your application folder:
 
@@ -42,7 +28,7 @@ npm install
 yarn install
 ```
 
-### 3. Run scripts
+### Run scripts
 
 Use `npm run` or `yarn run` with one of the following scripts:
 
