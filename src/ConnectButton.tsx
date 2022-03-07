@@ -1,60 +1,29 @@
-import { Button } from "@mui/material";
-import { useViewerConnection } from "@self.id/react";
-//import { EthereumAuthProvider } from '@self.id/web';
-import { EthereumAuthProvider } from '@3id/connect';
-import { useEffect } from "react";
+import { useConnection } from '@self.id/framework'
+import { Anchor, Button, Paragraph } from 'grommet'
+import React from 'react'
 
-async function createAuthProvider() {
-  // The following assumes there is an injected `window.ethereum` provider
-  var Window: any = window;
-  const addresses = await Window.ethereum.request({
-    method: "eth_requestAccounts",
-  });
-  return new EthereumAuthProvider(Window.ethereum, addresses[0]); // eslint-disable-line
-}
+export default function ConnectButton() {
+  const [connection, connect, disconnect] = useConnection()
 
-// A simple button to initiate the connection flow. A Provider must be present at a higher level
-// in the component tree for the `useViewerConnection()` hook to work.
-function ConnectButton({ setSelfID } : { setSelfID: any }) {
-  const [connection, connect, disconnect] = useViewerConnection();
-
-  useEffect(() => {
-    if (connection.status === "connected") {
-      setSelfID(connection.selfID);
-      console.log("connection.selfID", connection.selfID);
-    }
-  }, [connection, setSelfID]);
-
-  return connection.status === "connected" ? (
-    <div className="ConnectBtn">
-      <Button
-        size="large"
-        onClick={() => {
-          disconnect();
-        }}
-      >
-        Disconnect
-      </Button>
-    </div>
-  ) : "ethereum" in window ? (
-    <div className="ConnectBtn">
-      <Button
-        size="large"
-        className="ConnectBtn"
-        disabled={connection.status === "connecting"}
-        onClick={() => {
-          createAuthProvider().then(connect);
-        }}
-      >
-        Connect
-      </Button>
-    </div>
+  return connection.status === 'connected' ? (
+    <Button
+      label={`Disconnect (${connection.selfID.id})`}
+      onClick={() => {
+        disconnect()
+      }}
+    />
+  ) : 'ethereum' in window ? (
+    <Button
+      disabled={connection.status === 'connecting'}
+      label="Connect"
+      onClick={() => {
+        connect()
+      }}
+    />
   ) : (
-    <p>
-      An injected Ethereum provider such as{" "}
-      <a href="https://metamask.io/">MetaMask</a> is needed to authenticate.
-    </p>
-  );
+    <Paragraph>
+      An injected Ethereum provider such as <Anchor href="https://metamask.io/">MetaMask</Anchor> is
+      needed to authenticate.
+    </Paragraph>
+  )
 }
-
-export default ConnectButton;
