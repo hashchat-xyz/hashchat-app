@@ -1,0 +1,207 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+html {
+    background-color: #282828;
+}
+
+/* Header begins here */
+
+.nav-wrapper {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px;
+
+    position: absolute;
+    width: 1305px;
+    height: 48px;
+    left: 54px;
+    top: 46px;
+}
+
+.right-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+
+    position: static;
+    width: 678px;
+    height: 48px;
+    left: 627px;
+    top: 0px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+.search-button {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 90px;
+
+    position: static;
+    width: 320px;
+    height: 40px;
+    left: 0px;
+    top: 0px;
+
+    background: #e9e9e9;
+    border-radius: 20px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px;
+}
+
+.top-buttons ul {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+
+    position: static;
+    width: 416px;
+    height: 46px;
+    left: 0px;
+    top: 1px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+    margin: 0px;
+}
+
+.top-buttons li {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+
+    position: static;
+    width: 111px;
+    height: 46px;
+    left: 161px;
+    top: 0px;
+
+    color: white;
+
+    /* Ocean Blue */
+
+    border: 1px solid #00bfff;
+    box-sizing: border-box;
+    border-radius: 11.2px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin: 0px 25px;
+}
+
+.wallet ul {
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px 12px 12px;
+
+    position: static;
+    width: 212px;
+    height: 48px;
+    left: 466px;
+    top: 0px;
+    gap: 10px;
+
+    background: #fcfcfd;
+    /* White */
+
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    list-style: none;
+    /* Shadow/md */
+
+    border-radius: 11.2px;
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+    margin-left: 50px;
+}
+
+.wallet ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Header ends here */
+
+/* Main starts here */
+
+.window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin-top: 300px;
+}
+
+.starter-announcement {
+    font-size: 30px;
+    color: white;
+}
+
+.starter-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 50px;
+}
+
+.groupchat,
+.message {
+    color: white;
+    text-align: center;
+}
+
+.icon {
+    height: 100px;
+    width: 100px;
+}
+
+/* Main ends here */
