@@ -36,4 +36,5 @@ export default function App() {
             </Paragraph>
         </Box>
     );
+
 }
