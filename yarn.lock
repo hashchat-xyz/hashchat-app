@@ -6707,7 +6707,7 @@ lit-ceramic-sdk@^1.1.12:
     typescript "^4.5.4"
     uint8arrays "^3.0.0"
 
-lit-js-sdk@^1.1.121, lit-js-sdk@^1.1.139:
+lit-js-sdk@^1.1.121:
   version "1.1.139"
   resolved "https://registry.yarnpkg.com/lit-js-sdk/-/lit-js-sdk-1.1.139.tgz#90c927688f2a675f2127656a44e4c2516b538572"
   integrity sha512-dBsyxXeXv7N1NO/W6+utFWcV/prK9JpyO7pbIoG8lmZBPcjdfFt/pHQGyxVjvV10Rra5ubiqlEnHMlwOuCSSgw==
