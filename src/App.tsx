@@ -1,17 +1,13 @@
 import { AvatarPlaceholder, useConnection } from '@self.id/framework';
 import { Anchor, Box, Heading, Paragraph } from 'grommet';
-import React, { useRef } from 'react'
+import React, { useRef } from 'react';
 
 import ConnectButton from './ConnectButton';
 import FormAndSendMsg from './FormAndSendMsg';
 
-
-
-
 export default function App() {
     const [connection] = useConnection();
     const [streamId, setStreamId] = React.useState(null);
-
 
     return (
         <Box align="center" flex pad="large">
