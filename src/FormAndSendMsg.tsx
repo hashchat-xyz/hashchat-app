@@ -24,6 +24,7 @@ export default function FormAndSendMsg() {
         const streamId = await litCeramicIntegration.encryptAndWrite(msg, accessControlConditions);
 
         setStreamId(streamId);
+        console.log('setting streamId ', streamId);
         };
         
     const isNotConnected = (connection.status != 'connected');
@@ -63,6 +64,7 @@ export default function FormAndSendMsg() {
                 >
                 ENCRYPT AND SEND
             </Button>
+            <div>{streamId ? 'sent' : ''}</div>
         </>
     );
 }
