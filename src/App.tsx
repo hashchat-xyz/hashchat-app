@@ -42,7 +42,7 @@ export default function App() {
 
     return (
         <Box align="center" flex pad="large">
-            <Heading>Self.ID example app</Heading>
+            <Heading>Hashchat app</Heading>
             <Box pad="medium">
                 <AvatarPlaceholder
                     did={connection.status === 'connected' ? connection.selfID.id : 'self.id'}
@@ -50,10 +50,8 @@ export default function App() {
                 />
             </Box>
             <ConnectButton />
-            <Paragraph>
-                Learn more about the{' '}
-                <Anchor href="https://developers.ceramic.network/tools/self-id/overview/">Self.ID SDK</Anchor>.
-            </Paragraph>
+
+
             <Paragraph>
                 {streamId ? (
                     <a
