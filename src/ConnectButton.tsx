@@ -6,12 +6,15 @@ export default function ConnectButton() {
   const [connection, connect, disconnect] = useConnection()
 
   return connection.status === 'connected' ? (
-    <Button
-      label={`Disconnect (${connection.selfID.id})`}
-      onClick={() => {
-        disconnect()
-      }}
-    />
+    <div>
+      <Button
+        label={`Disconnect`}
+        onClick={() => {
+          disconnect()
+        }}
+      />
+      <div>${connection.selfID.id}</div>
+    </div>
   ) : 'ethereum' in window ? (
     <Button
       disabled={connection.status === 'connecting'}
