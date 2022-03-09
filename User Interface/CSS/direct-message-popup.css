@@ -223,8 +223,6 @@ ul {
 
 /* END HEADER */
 
-/* BEGIN MAIN */
-
 .main {
     display: flex;
     align-items: center;
@@ -247,27 +245,32 @@ ul {
     gap: 10px;
 }
 
-.main-text h1 {
-    font-size: 40px;
-    text-align: center;
-    width: fit-content;
-}
-
-.main-icons {
+.wallet-address {
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    font-size: 20px;
+    align-content: center;
     text-align: center;
 
-    gap: 60px;
+    gap: 20px;
 }
 
-.main-icons img {
-    height: 150px;
-    width: 150px;
+#enter-address-button {
+    width: 96px;
+    height: 46px;
+    left: 629px;
+    top: 9.5px;
+
+    color: white;
+    font-weight: bolder;
+
+    background: #00bfff;
+    border-radius: 11.2px;
 }
 
-h3 {
-    margin-top: 0px;
+#enter-address-button,
+#search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

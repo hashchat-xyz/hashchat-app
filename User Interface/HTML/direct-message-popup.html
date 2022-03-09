@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/User Interface/CSS/style.css">
+    <link rel="stylesheet" href="/User Interface/CSS/direct-message-popup.css">
     <link rel="icon" type="image/x-icon" href="/User Interface/img/favicon.svg">
     <title>Hashchat</title>
 </head>
@@ -36,22 +36,13 @@
     <div class="main">
         <div class="overlay">
             <div class="main-text">
-                <h1>Start a new conversation.</h1>
+                <h1>Send an encrypted message to this wallet address.</h1>
             </div>
-            <div class="main-icons">
-                <div class="main-icon-left">
-                    <a href="/User Interface/HTML/direct-message-popup.html">
-                    <img src="/User Interface/img/person.svg" alt="person">
-                    <h3>Message</h3>
-                    </a>
-                </div>
-                <div class="main-icon-right">
-                    <img src="/User Interface/img/people.svg" alt="people">
-                    <h3>Groupchat</h3>
-                </div>
+            <div class="wallet-address">
+                <input type="text" placeholder="Paste wallet address." id="search-bar">
+                <button id="enter-address-button">Enter</button>
             </div>
         </div>
     </div>
-    
 </body>
 </html>
