@@ -1,12 +1,13 @@
 import { Button } from "grommet";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { setAccessControlConditions } from "./utils";
-import { useConnection } from "@self.id/framework";
+import { useConnection, useCore } from "@self.id/framework";
 import { useMultiAuth } from "@self.id/multiauth";
 import LitJsSdk from "lit-js-sdk";
-import { ethers } from "ethers";
+import { generateLitAuthSig } from "./utils";
+import { TileDocument } from "@ceramicnetwork/stream-tile";
 
 const CHAIN = "polygon";
 
@@ -14,54 +15,37 @@ export default function FormAndSendMsg() {
   const [toAddr, setAddr] = useState("");
   const [msg, setMsg] = useState("");
   const [connection] = useConnection();
-  const [streamId, setStreamId] = React.useState(null);
+  const core = useCore();
+  const [streamId, setStreamId] = useState("");
   const [authState, authenticate] = useMultiAuth();
 
-  //   let litCeramicIntegration = new Integration(
-  //     "https://ceramic-clay.3boxlabs.com",
-  //     CHAIN
-  //   );
-  //   litCeramicIntegration.startLitClient(window);
-
-  React.useEffect(() => {
-    const generateLitAuthSig = async () => {
-      if (authState.status === "authenticated") {
-        let ethProvider = authState.auth.state.provider;
-        const provider = new ethers.providers.Web3Provider(ethProvider);
-
-        const client = new LitJsSdk.LitNodeClient();
-        await client.connect();
-
-        let authSig = localStorage.getItem("lit-auth-signature");
-        if (!authSig) {
-          console.log(
-            "signing auth message because sig is not in local storage"
-          );
-          await LitJsSdk.signAndSaveAuthMessage({
-            web3: provider,
-            account: authState.auth.accountID.address,
-          });
-          authSig = localStorage.getItem("lit-auth-signature");
-        }
-        console.log("authSig");
-        console.log(authSig);
-      }
-    };
-
-    generateLitAuthSig();
+  useEffect(() => {
+    generateLitAuthSig(authState);
   }, [authState]);
 
   const write = async () => {
-    // const authSig = await LitJsSdk.checkAndSignAuthMessage({
-    //   chain: "ethereum",
-    // });
-    // const accessControlConditions = setAccessControlConditions(toAddr);
-    // const streamId = await litCeramicIntegration.encryptAndWrite(
-    //   msg,
-    //   accessControlConditions
-    // );
-    // setStreamId(streamId);
-    // console.log("setting streamId ", streamId);
+    const litNodeClient = new LitJsSdk.LitNodeClient();
+    await litNodeClient.connect();
+
+    const accessControlConditions = setAccessControlConditions(toAddr);
+    const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(msg);
+    let authSig = await generateLitAuthSig(authState);
+
+    const encryptedSymmetricKey = await litNodeClient.saveEncryptionKey({
+      accessControlConditions,
+      symmetricKey,
+      authSig,
+      chain: CHAIN,
+    });
+
+    const doc = await TileDocument.create(core.ceramic, {
+      accessControlConditions: accessControlConditions,
+      encryptedSymmetricKey: encryptedSymmetricKey,
+    });
+    const _streamId = doc.id.toString();
+
+    setStreamId(_streamId);
+    console.log("setting streamId ", _streamId);
   };
 
   const isNotConnected = connection.status != "connected";
