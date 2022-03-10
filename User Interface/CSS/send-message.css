@@ -223,7 +223,11 @@ ul {
 
 /* END HEADER */
 
-/* BEGIN PROFILE */
+.body {
+    display: flex;
+}
+
+/* BEGIN ALL PROFILES */
 
 .all-profiles {
     display: flex;
@@ -231,8 +235,14 @@ ul {
     height: 675px;
 
     gap: 40px;
+}
 
-    background-color: red;
+.profile,
+.profile2,
+.profile3,
+.profile4 {
+    background-color: #c4c4c4;
+    border-radius: 16px;
 }
 
 .profile {
@@ -246,9 +256,6 @@ ul {
     margin-left: 2.5%;
     margin-top: 100px;
     gap: 20px;
-
-    background-color: grey;
-    border-radius: 20px;
 }
 
 .profile h4 {
@@ -266,9 +273,6 @@ ul {
     height: 50px;
     margin-left: 2.5%;
     gap: 20px;
-
-    background-color: grey;
-    border-radius: 20px;
 }
 
 .profile2 h4 {
@@ -286,9 +290,6 @@ ul {
     height: 50px;
     margin-left: 2.5%;
     gap: 20px;
-
-    background-color: grey;
-    border-radius: 20px;
 }
 
 .profile3 h4 {
@@ -306,12 +307,115 @@ ul {
     height: 50px;
     margin-left: 2.5%;
     gap: 20px;
-
-    background-color: grey;
-    border-radius: 20px;
 }
 
 .profile4 h4 {
     color: white;
     font-size: 24px;
+}
+
+/* END ALL PROFILES */
+
+/* BEGIN CHAT-WRAPPER */
+
+.chat-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-width: calc('100vw-145px');
+    align-content: center;
+    margin-left: 40px;
+}
+
+.reciever-name h2 {
+    color: white;
+    font-size: 40px;
+}
+
+.chat-contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 50px;
+}
+
+.chat-contents p {
+    color: white;
+}
+
+.sent-message-1 {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.sent-message-1 p {
+    padding: 20px;
+    background-color: rgba(0, 148, 255, 0.2);
+
+    border-radius: 20px;
+}
+
+.recieved-message-1 {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.recieved-message-1 p {
+    padding: 20px;
+    background-color: rgba(0, 148, 255, 0.2);
+
+    border-radius: 20px;
+}
+
+.sent-message-2 {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: center;
+}
+
+.sent-message-2 p {
+    padding: 20px;
+    background-color: rgba(0, 148, 255, 0.2);
+
+    border-radius: 20px;
+}
+
+.recieved-message-2 {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.recieved-message-2 p {
+    padding: 20px;
+    background-color: rgba(0, 148, 255, 0.2);
+
+    border-radius: 20px;
+}
+
+.send-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.send-message #search-bar {
+    border-radius: 10px 100px;
+    padding: 10px 500px;
+    width: 15%;
+}
+
+.send-message input {
+    display: flex;
+    width: 85%;
 }
