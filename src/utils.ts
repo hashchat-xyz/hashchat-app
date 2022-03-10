@@ -1,6 +1,13 @@
 import LitJsSdk from "lit-js-sdk";
 import { ethers } from "ethers";
 import { AuthState } from "@self.id/multiauth";
+import {
+  AppendCollection,
+  Collection,
+} from "@cbj/ceramic-append-collection/dist/index.js";
+import { xc20pDirEncrypter, createJWE, JWE } from "did-jwt";
+import { prepareCleartext } from "dag-jose-utils";
+import { Core } from "@self.id/framework";
 
 const CHAIN = "polygon";
 
@@ -37,4 +44,26 @@ export async function generateLitAuthSig(authState: AuthState): Promise<any> {
 
     return JSON.parse(authSig || "{}");
   }
+}
+
+export async function encryptMsg(
+  msg: Record<string, any>,
+  key: Uint8Array
+): Promise<JWE> {
+  const dirEncrypter = xc20pDirEncrypter(key);
+  const cleartext = await prepareCleartext(msg);
+  const jwe = await createJWE(cleartext, [dirEncrypter]);
+  return jwe;
+}
+
+export async function encryptAndAddMessageToCollection(
+  collection: Collection,
+  msg: string,
+  key: Uint8Array
+): Promise<Collection> {
+  const jwe = await encryptMsg({ text: msg }, key);
+
+  await collection.insert(jwe);
+
+  return collection;
 }
