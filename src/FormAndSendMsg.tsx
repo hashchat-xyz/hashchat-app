@@ -6,8 +6,16 @@ import { setAccessControlConditions } from "./utils";
 import { useConnection, useCore } from "@self.id/framework";
 import { useMultiAuth } from "@self.id/multiauth";
 import LitJsSdk from "lit-js-sdk";
-import { generateLitAuthSig } from "./utils";
+import {
+  generateLitAuthSig,
+  encryptAndAddMessageToCollection,
+  encryptMsg,
+} from "./utils";
 import { TileDocument } from "@ceramicnetwork/stream-tile";
+import {
+  AppendCollection,
+  Collection,
+} from "@cbj/ceramic-append-collection/dist/index.js";
 
 const CHAIN = "polygon";
 
@@ -27,8 +35,20 @@ export default function FormAndSendMsg() {
     const litNodeClient = new LitJsSdk.LitNodeClient();
     await litNodeClient.connect();
 
+    const collection: Collection = (await AppendCollection.create(
+      core.ceramic,
+      {
+        sliceMaxItems: 256,
+      }
+    )) as Collection;
+
     const accessControlConditions = setAccessControlConditions(toAddr);
-    const { encryptedString, symmetricKey } = await LitJsSdk.encryptString(msg);
+    const { encryptedString, symmetricKey } = await LitJsSdk.encryptString("");
+    // Encrypt collection stream ID using dag-jose
+    const encryptedStreamId = await encryptMsg(
+      { threadStreamId: collection.id.toString() },
+      symmetricKey
+    );
     let authSig = await generateLitAuthSig(authState);
 
     const encryptedSymmetricKey = await litNodeClient.saveEncryptionKey({
@@ -38,14 +58,18 @@ export default function FormAndSendMsg() {
       chain: CHAIN,
     });
 
+    await encryptAndAddMessageToCollection(collection, msg, symmetricKey);
+
     const doc = await TileDocument.create(core.ceramic, {
       accessControlConditions: accessControlConditions,
       encryptedSymmetricKey: encryptedSymmetricKey,
+      encryptedStreamId: encryptedStreamId,
     });
     const _streamId = doc.id.toString();
 
     setStreamId(_streamId);
     console.log("setting streamId ", _streamId);
+    console.log("Collection: ", collection.id.toString());
   };
 
   const isNotConnected = connection.status != "connected";

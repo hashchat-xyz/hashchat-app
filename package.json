@@ -9,11 +9,13 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@cbj/ceramic-append-collection": "^0.1.19",
     "@emotion/react": "^11.8.1",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.5.0",
     "@mui/styled-engine": "^5.4.4",
     "@self.id/framework": "0.2.0",
+    "@types/jest": "^27.4.1",
     "eslint-config-prettier": "^8.5.0",
     "ethers": "^5.5.4",
     "grommet": "2.21.0",
