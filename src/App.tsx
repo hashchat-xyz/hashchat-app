@@ -11,7 +11,7 @@ export default function App() {
 
     return (
         <Box align="center" flex pad="large">
-            <Heading>Hashchat app</Heading>
+            <Heading>Hashchat app Alpha</Heading>
             <Box pad="medium">
                 <AvatarPlaceholder
                     did={connection.status === 'connected' ? connection.selfID.id : 'self.id'}
