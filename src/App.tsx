@@ -11,8 +11,6 @@ import FormAndSendMsg from './FormAndSendMsg';
 export default function App() {
     const [connection] = useConnection();
     const [streamId, setStreamId] = React.useState(null);
-
-
     return (
         <Box align="center" flex pad="large">
             <Heading>Hashchat app</Heading>
