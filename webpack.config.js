@@ -1,38 +1,43 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'index.tsx'),
-  output: {
-    path: path.resolve(__dirname, 'build'),
-  },
-  resolve: {
-    extensions: ['.tsx', '.ts', '.js', '.json'],
-    fallback: {
-      assert: require.resolve('assert/'),
-      crypto: false,
-      http: false,
-      https: false,
-      os: false,
-      stream: require.resolve('stream-browserify'),
+    entry: path.resolve(__dirname, 'src', 'index.tsx'),
+    output: {
+        path: path.resolve(__dirname, 'build'),
     },
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(png|svg)/,
-        type: 'asset/resource',
-      },
-      {
-        test: /\.tsx?$/,
-        loader: 'swc-loader',
-        exclude: /(node_modules)/,
-      },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js', '.json'],
+        fallback: {
+            assert: require.resolve('assert/'),
+            crypto: false,
+            http: false,
+            https: false,
+            os: false,
+            stream: require.resolve('stream-browserify'),
+        },
+    },
+    module: {
+        rules: [
+            {
+                test: /\.(png|svg)/,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.tsx?$/,
+                loader: 'swc-loader',
+                exclude: /(node_modules)/,
+            },
+        ],
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, 'src', 'index.html'),
+        }),
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+            Buffer: ['buffer', 'Buffer'],
+        }),
     ],
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'src', 'index.html'),
-    }),
-  ],
-}
+};
