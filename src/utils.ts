@@ -73,3 +73,8 @@ export async function encryptAndAddMessageToCollection(
 export async function postToInbox(user: string, streamId: string) {
   await axios.post(`${WORKER_ENDPOINT}/inbox/${user}/${streamId}`);
 }
+
+export async function getInbox(user: string): Promise<string[]> {
+  const result = await axios.get(`${WORKER_ENDPOINT}/inbox/${user}`);
+  return result.data["inbox"];
+}
