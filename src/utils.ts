@@ -8,8 +8,10 @@ import {
 import { xc20pDirEncrypter, createJWE, JWE } from "did-jwt";
 import { prepareCleartext } from "dag-jose-utils";
 import { Core } from "@self.id/framework";
+import axios from "axios";
 
 const CHAIN = "polygon";
+const WORKER_ENDPOINT = "https://hashchat-worker.codynhat.workers.dev";
 
 export function setAccessControlConditions(toAddr: string) {
   return [
@@ -66,4 +68,8 @@ export async function encryptAndAddMessageToCollection(
   await collection.insert(jwe);
 
   return collection;
+}
+
+export async function postToInbox(user: string, streamId: string) {
+  await axios.post(`${WORKER_ENDPOINT}/inbox/${user}/${streamId}`);
 }

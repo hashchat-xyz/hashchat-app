@@ -10,6 +10,7 @@ import {
   generateLitAuthSig,
   encryptAndAddMessageToCollection,
   encryptMsg,
+  postToInbox,
 } from "./utils";
 import { TileDocument } from "@ceramicnetwork/stream-tile";
 import {
@@ -66,6 +67,8 @@ export default function FormAndSendMsg() {
       encryptedStreamId: encryptedStreamId,
     });
     const _streamId = doc.id.toString();
+
+    await postToInbox(toAddr, _streamId);
 
     setStreamId(_streamId);
     console.log("setting streamId ", _streamId);
