@@ -1,28 +1,11 @@
-import { AvatarPlaceholder, useConnection, useCore } from "@self.id/framework";
+import { AvatarPlaceholder, useConnection } from "@self.id/framework";
 import { Anchor, Box, Card, Heading, CardHeader } from "grommet";
-import React, { useRef, useState, useEffect } from "react";
-import { useMultiAuth } from "@self.id/multiauth";
-
+import React from "react";
 import ConnectButton from "./ConnectButton";
 import FormAndSendMsg from "./FormAndSendMsg";
-import { getInbox } from "./utils";
 
 export default function App() {
   const [connection] = useConnection();
-  const [authState, authenticate] = useMultiAuth();
-  const core = useCore();
-  const [inbox, setInbox] = useState([] as string[]);
-
-  useEffect(() => {
-    const readInbox = async () => {
-      if (authState.status === "authenticated") {
-        const inbox = await getInbox(authState.auth.accountID.address);
-        setInbox(inbox);
-      }
-    };
-
-    readInbox();
-  }, [authState]);
 
   return (
     <Box align="center" flex pad="large">
@@ -38,14 +21,6 @@ export default function App() {
       <ConnectButton />
 
       <FormAndSendMsg />
-
-      <>
-        {inbox.map((streamId, i) => (
-          <Card key={i}>
-            <CardHeader>{streamId}</CardHeader>
-          </Card>
-        ))}
-      </>
     </Box>
   );
 }

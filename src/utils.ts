@@ -5,8 +5,14 @@ import {
   AppendCollection,
   Collection,
 } from "@cbj/ceramic-append-collection/dist/index.js";
-import { xc20pDirEncrypter, createJWE, JWE } from "did-jwt";
-import { prepareCleartext } from "dag-jose-utils";
+import {
+  xc20pDirEncrypter,
+  xc20pDirDecrypter,
+  createJWE,
+  decryptJWE,
+  JWE,
+} from "did-jwt";
+import { prepareCleartext, decodeCleartext } from "dag-jose-utils";
 import { Core } from "@self.id/framework";
 import axios from "axios";
 
@@ -18,7 +24,7 @@ export function setAccessControlConditions(toAddr: string) {
     {
       contractAddress: "",
       standardContractType: "",
-      CHAIN,
+      chain: CHAIN,
       method: "",
       parameters: [":userAddress"],
       returnValueTest: {
@@ -70,11 +76,31 @@ export async function encryptAndAddMessageToCollection(
   return collection;
 }
 
+export async function decryptMsg(
+  msg: JWE,
+  key: Uint8Array
+): Promise<Record<string, any>> {
+  const dirDecrypter = xc20pDirDecrypter(key);
+  const decryptedData = await decryptJWE(msg, dirDecrypter);
+  return decodeCleartext(decryptedData);
+}
+
 export async function postToInbox(user: string, streamId: string) {
-  await axios.post(`${WORKER_ENDPOINT}/inbox/${user}/${streamId}`);
+  await axios.post(
+    `${WORKER_ENDPOINT}/inbox/${user.toLowerCase()}/${streamId.toLowerCase()}`
+  );
 }
 
 export async function getInbox(user: string): Promise<string[]> {
   const result = await axios.get(`${WORKER_ENDPOINT}/inbox/${user}`);
   return result.data["inbox"];
+}
+
+export function encodeb64(uintarray: any) {
+  const b64 = Buffer.from(uintarray).toString("base64");
+  return b64;
+}
+
+export function decodeb64(b64String: any) {
+  return new Uint8Array(Buffer.from(b64String, "base64"));
 }

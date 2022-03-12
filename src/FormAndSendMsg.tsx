@@ -1,4 +1,4 @@
-import { Button } from "grommet";
+import { Button, CardBody } from "grommet";
 import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
@@ -11,12 +11,17 @@ import {
   encryptAndAddMessageToCollection,
   encryptMsg,
   postToInbox,
+  getInbox,
+  encodeb64,
+  decodeb64,
+  decryptMsg,
 } from "./utils";
 import { TileDocument } from "@ceramicnetwork/stream-tile";
 import {
   AppendCollection,
   Collection,
 } from "@cbj/ceramic-append-collection/dist/index.js";
+import { Card, CardHeader } from "grommet";
 
 const CHAIN = "polygon";
 
@@ -27,13 +32,67 @@ export default function FormAndSendMsg() {
   const core = useCore();
   const [streamId, setStreamId] = useState("");
   const [authState, authenticate] = useMultiAuth();
+  const [inbox, setInbox] = useState([] as any[]);
+  const litNodeClient = new LitJsSdk.LitNodeClient();
 
   useEffect(() => {
-    generateLitAuthSig(authState);
+    const readInbox = async () => {
+      if (authState.status === "authenticated") {
+        const authSig = await generateLitAuthSig(authState);
+        await litNodeClient.connect();
+
+        const _inbox = await getInbox(authState.auth.accountID.address);
+
+        const _inboxWithMsgs = await Promise.all(
+          _inbox.map(async (streamId) => {
+            const litStream = await TileDocument.load(core.ceramic, streamId);
+            const litStreamContent = litStream.content as any;
+
+            const symmetricKey: Uint8Array =
+              await litNodeClient.getEncryptionKey({
+                accessControlConditions:
+                  litStreamContent.accessControlConditions,
+                toDecrypt: LitJsSdk.uint8arrayToString(
+                  decodeb64(litStreamContent.encryptedSymmetricKey),
+                  "base16"
+                ),
+                chain: CHAIN,
+                authSig,
+              });
+
+            const streamIdContainer = await decryptMsg(
+              litStreamContent.encryptedStreamId,
+              symmetricKey
+            );
+
+            const collection = await AppendCollection.load(
+              core.ceramic,
+              streamIdContainer.threadStreamId
+            );
+
+            const encryptedMsgs = await collection.getFirstN(5);
+
+            const cleartextMsgs = await Promise.all(
+              encryptedMsgs.map(async (item) => {
+                return await decryptMsg(item.value, symmetricKey);
+              })
+            );
+
+            return {
+              threadId: streamId,
+              from: litStream.controllers[0],
+              cleartextMsgs: cleartextMsgs,
+            };
+          })
+        );
+        setInbox(_inboxWithMsgs);
+      }
+    };
+
+    readInbox();
   }, [authState]);
 
   const write = async () => {
-    const litNodeClient = new LitJsSdk.LitNodeClient();
     await litNodeClient.connect();
 
     const collection: Collection = (await AppendCollection.create(
@@ -63,7 +122,7 @@ export default function FormAndSendMsg() {
 
     const doc = await TileDocument.create(core.ceramic, {
       accessControlConditions: accessControlConditions,
-      encryptedSymmetricKey: encryptedSymmetricKey,
+      encryptedSymmetricKey: encodeb64(encryptedSymmetricKey),
       encryptedStreamId: encryptedStreamId,
     });
     const _streamId = doc.id.toString();
@@ -115,6 +174,19 @@ export default function FormAndSendMsg() {
         ENCRYPT AND SEND
       </Button>
       <div>{streamId ? "sent" : ""}</div>
+
+      <div>
+        {inbox.map((thread, i) => (
+          <Card key={i}>
+            <CardHeader>From: {thread.from}</CardHeader>
+            <CardBody>
+              {thread.cleartextMsgs.map((msg: any) => (
+                <p>{msg.text}</p>
+              ))}
+            </CardBody>
+          </Card>
+        ))}
+      </div>
     </>
   );
 }
