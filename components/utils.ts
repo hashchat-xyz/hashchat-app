@@ -1,6 +1,5 @@
 import LitJsSdk from "lit-js-sdk";
 import { ethers } from "ethers";
-import { AuthState } from "@self.id/multiauth";
 import {
   AppendCollection,
   Collection,
@@ -13,7 +12,6 @@ import {
   JWE,
 } from "did-jwt";
 import { prepareCleartext, decodeCleartext } from "dag-jose-utils";
-import { Core } from "@self.id/framework";
 import axios from "axios";
 
 const CHAIN = "polygon";
@@ -35,23 +33,23 @@ export function setAccessControlConditions(toAddr: string) {
   ];
 }
 
-export async function generateLitAuthSig(authState: AuthState): Promise<any> {
-  if (authState.status === "authenticated") {
-    let ethProvider = authState.auth.state.provider;
-    const provider = new ethers.providers.Web3Provider(ethProvider);
+export async function generateLitAuthSig(ethProvider): Promise<any> {
+  const addresses = await ethProvider.request({
+    method: "eth_requestAccounts",
+  });
+  const provider = new ethers.providers.Web3Provider(ethProvider);
 
-    let authSig = localStorage.getItem("lit-auth-signature");
-    if (!authSig) {
-      console.log("signing auth message because sig is not in local storage");
-      await LitJsSdk.signAndSaveAuthMessage({
-        web3: provider,
-        account: authState.auth.accountID.address,
-      });
-      authSig = localStorage.getItem("lit-auth-signature");
-    }
-
-    return JSON.parse(authSig || "{}");
+  let authSig = localStorage.getItem("lit-auth-signature");
+  if (!authSig) {
+    console.log("signing auth message because sig is not in local storage");
+    await LitJsSdk.signAndSaveAuthMessage({
+      web3: provider,
+      account: addresses[0],
+    });
+    authSig = localStorage.getItem("lit-auth-signature");
   }
+
+  return JSON.parse(authSig || "{}");
 }
 
 export async function encryptMsg(

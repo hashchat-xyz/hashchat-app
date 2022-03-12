@@ -3,7 +3,12 @@ import { useRouter } from "next/router";
 import React from "react";
 import ConnectButton from "./ConnectButton";
 
-export default function Nav({ selfID, setSelfID }) {
+export default function Nav({
+  selfID,
+  setSelfID,
+  ethProvider,
+  setEthProvider,
+}) {
   const router = useRouter();
 
   return (
@@ -26,7 +31,12 @@ export default function Nav({ selfID, setSelfID }) {
           </ul>
         </div>
         <div className="wallet">
-          <ConnectButton selfID={selfID} setSelfID={setSelfID} />
+          <ConnectButton
+            selfID={selfID}
+            setSelfID={setSelfID}
+            ethProvider={ethProvider}
+            setEthProvider={setEthProvider}
+          />
         </div>
       </div>
     </div>

@@ -5,9 +5,11 @@ import { EthereumAuthProvider, SelfID } from "@self.id/web";
 export default function ConnectButton({
   selfID,
   setSelfID,
+  setEthProvider,
 }: {
   selfID: SelfID;
   setSelfID;
+  setEthProvider;
 }) {
   const [connecting, setConn] = React.useState(false);
 
@@ -18,14 +20,20 @@ export default function ConnectButton({
       method: "eth_requestAccounts",
     });
 
+    const _ethProvider = new EthereumAuthProvider(
+      window.ethereum,
+      addresses[0]
+    );
+
     const _selfID = await SelfID.authenticate({
-      authProvider: new EthereumAuthProvider(window.ethereum, addresses[0]),
+      authProvider: _ethProvider,
       ceramic: "testnet-clay",
       // Make sure the `ceramic` and `connectNetwork` parameter connect to the same network
       connectNetwork: "testnet-clay",
     });
 
     setSelfID(_selfID);
+    setEthProvider(_ethProvider);
     setConn(false);
   };
 
