@@ -7,7 +7,7 @@ export default function Home() {
   const router = useRouter()
 
   const connectMetamask = () => {
-    router.push("/start-chat");
+    router.push("/connect");
   };
 
   return (

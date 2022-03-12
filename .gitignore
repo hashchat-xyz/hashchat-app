@@ -32,3 +32,10 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+shell.nix
+.envrc
