@@ -1,9 +1,17 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { useState, useEffect } from "react";
 
 export default function Nav() {
+  const [walletAddress, setWalletAddress] = useState("0x");
   const router = useRouter();
+
+  useEffect(() => {
+    const wAddress = localStorage.getItem("address");
+    setWalletAddress(wAddress);
+  });
+
   return (
     <div className="header">
       <div className="header-left">
@@ -28,7 +36,9 @@ export default function Nav() {
             <li>
               <img src="/green-dot.svg" alt="green-dot" />
             </li>
-            <li>0b09...fdb7</li>
+            <li>{`${walletAddress.slice(0, 5)}...${walletAddress.slice(
+              35
+            )}`}</li>
             <li>
               <img src="/chevron-down.svg" alt="chevron" />
             </li>
