@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "webpack serve --mode development",
-    "build": "del build && webpack --mode production",
-    "serve": "serve build",
-    "lint": "eslint"
+    "dev": "next dev" ,
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
     "@cbj/ceramic-append-collection": "^0.1.19",
@@ -15,12 +15,14 @@
     "@mui/material": "^5.5.0",
     "@mui/styled-engine": "^5.4.4",
     "@self.id/framework": "0.2.0",
+    "@swc/core-darwin-x64": "^1.2.154",
     "@types/jest": "^27.4.1",
     "axios": "^0.26.1",
     "eslint-config-prettier": "^8.5.0",
     "ethers": "^5.5.4",
     "grommet": "2.21.0",
     "lit-js-sdk": "^1.1.140",
+    "next": "^12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "styled-components": "5.3.3",

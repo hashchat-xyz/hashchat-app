@@ -128,3 +128,5 @@ yarn-error.log*
 
 shell.nix
 .envrc
+
+.next
