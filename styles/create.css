@@ -1,0 +1,40 @@
+
+.overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: grey;
+
+    padding: 100px;
+    border-radius: 11.2px;
+
+    padding: 50px;
+}
+
+.main-text h1 {
+    text-align: center;
+
+    color: white;
+    font-size: 50px;
+}
+
+.name,
+.blockchain,
+.token-name,
+.tokens-required {
+    width: 100%;
+}
+
+#name-bar {
+    width: 100%;
+    outline: none;
+    border: none;
+    padding:15px 5px;
+    border-radius: 12px;
+}
+
+h4{
+    margin: 10px 0;
+}
