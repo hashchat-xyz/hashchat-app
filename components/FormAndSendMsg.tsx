@@ -2,7 +2,7 @@ import { Button, CardBody } from "grommet";
 import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { setAccessControlConditions } from "./utils";
+import { setAccessControlConditions } from "../src/utils";
 import { useConnection, useCore } from "@self.id/framework";
 import { useMultiAuth } from "@self.id/multiauth";
 import LitJsSdk from "lit-js-sdk";
@@ -15,7 +15,7 @@ import {
   encodeb64,
   decodeb64,
   decryptMsg,
-} from "./utils";
+} from "../src/utils";
 import { TileDocument } from "@ceramicnetwork/stream-tile";
 import {
   AppendCollection,

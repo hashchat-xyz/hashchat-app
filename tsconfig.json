@@ -18,9 +18,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "preserve",
+    "incremental": true
   },
   "include": [
-    "src"
+    "src",
+    "components/ConnectButton.tsx",
+    "components/FormAndSendMsg.tsx"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

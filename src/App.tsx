@@ -1,8 +1,8 @@
 import { AvatarPlaceholder, useConnection } from "@self.id/framework";
 import { Anchor, Box, Card, Heading, CardHeader } from "grommet";
 import React from "react";
-import ConnectButton from "./ConnectButton";
-import FormAndSendMsg from "./FormAndSendMsg";
+import ConnectButton from "../components/ConnectButton";
+import FormAndSendMsg from "../components/FormAndSendMsg";
 
 export default function App() {
   const [connection] = useConnection();

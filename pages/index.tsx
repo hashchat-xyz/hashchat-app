@@ -1,15 +1,26 @@
-import { DisplayWithTS } from '../src/pages/WithTS'
-const TSComponent = () => {
-    return(
-      <div className="App">
-          <a href="/">With TS</a>
-          <br/>
-          <a href="/WithoutTS">Without TS</a>
-          <br/>
-          <br/>
-          <DisplayWithTS />
-      </div>
-    )
-  }
+import { AvatarPlaceholder, useConnection } from "@self.id/framework";
+import { Anchor, Box, Card, Heading, CardHeader } from "grommet";
+import React from "react";
+import ConnectButton from "../components/ConnectButton";
+import FormAndSendMsg from "../components/FormAndSendMsg";
 
-  export default TSComponent
+export default function App() {
+  const [connection] = useConnection();
+
+  return (
+    <Box align="center" flex pad="large">
+      <Heading>Hashchat app</Heading>
+      <Box pad="medium">
+        <AvatarPlaceholder
+          did={
+            connection.status === "connected" ? connection.selfID.id : "self.id"
+          }
+          size={120}
+        />
+      </Box>
+      <ConnectButton />
+
+      <FormAndSendMsg />
+    </Box>
+  );
+}
