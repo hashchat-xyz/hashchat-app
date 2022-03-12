@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import ConnectButton from "./ConnectButton";
 
 export default function Nav() {
   const router = useRouter();
@@ -24,15 +25,7 @@ export default function Nav() {
           </ul>
         </div>
         <div className="wallet">
-          <ul>
-            <li>
-              <img src="/green-dot.svg" alt="green-dot" />
-            </li>
-            <li>0b09...fdb7</li>
-            <li>
-              <img src="/chevron-down.svg" alt="chevron" />
-            </li>
-          </ul>
+          <ConnectButton />
         </div>
       </div>
     </div>
