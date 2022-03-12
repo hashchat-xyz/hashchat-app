@@ -2,12 +2,29 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Nav from "../components/Nav";
+import { EthereumAuthProvider, SelfID } from "@self.id/web";
+import React from "react";
 
 export default function Home() {
-  const router = useRouter()
+  const router = useRouter();
+  const [selfID, setSelfID] = React.useState(null);
 
-  const connectMetamask = () => {
-    router.push("/connect");
+  const connectMetamask = async () => {
+    // The following assumes there is an injected `window.ethereum` provider
+    const addresses = await window.ethereum.request({
+      method: "eth_requestAccounts",
+    });
+
+    const _selfID = await SelfID.authenticate({
+      authProvider: new EthereumAuthProvider(window.ethereum, addresses[0]),
+      ceramic: "testnet-clay",
+      // Make sure the `ceramic` and `connectNetwork` parameter connect to the same network
+      connectNetwork: "testnet-clay",
+    });
+
+    setSelfID(_selfID);
+
+    router.push("/inbox");
   };
 
   return (

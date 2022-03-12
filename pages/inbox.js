@@ -1,10 +1,10 @@
 import React from "react";
 import Nav from "../components/Nav";
 
-export default function Inbox() {
+export default function Inbox({ selfID, setSelfID }) {
   return (
     <div>
-      <Nav />
+      <Nav selfID={selfID} setSelfID={setSelfID} />
 
       <div className="body">
         <div className="all-profiles">
