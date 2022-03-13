@@ -138,6 +138,8 @@ export default function FormAndSendMsg() {
 
   return (
     <>
+    {isNotConnected ? '' :
+      <>
       <Typography>
         'Enter to address (i.e. 0xfjkslaf or vitalik.eth) and enter your message
         to send'
@@ -174,7 +176,8 @@ export default function FormAndSendMsg() {
         ENCRYPT AND SEND
       </Button>
       <div>{streamId ? "sent" : ""}</div>
-
+      </>
+        }
       <div>
         {inbox.map((thread, i) => (
           <Card key={i}>
@@ -185,7 +188,7 @@ export default function FormAndSendMsg() {
               ))}
             </CardBody>
           </Card>
-        ))}
+        )).reverse()}
       </div>
     </>
   );
