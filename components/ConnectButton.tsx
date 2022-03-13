@@ -1,6 +1,7 @@
 import { useConnection } from '@self.id/framework'
 import { Anchor, Button, Paragraph } from 'grommet'
-import React from 'react'
+import React, { useEffect } from 'react'
+
 
 export default function ConnectButton() {
   const [connection, connect, disconnect] = useConnection()

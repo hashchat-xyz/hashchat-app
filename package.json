@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev" ,
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -14,10 +14,13 @@
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.5.0",
     "@mui/styled-engine": "^5.4.4",
-    "@self.id/framework": "0.2.0",
-    "@swc/core-darwin-x64": "^1.2.154",
+    "@self.id/framework": "file:../self.id/packages/framework",
+    "@self.id/multiauth": "file:../self.id/packages/multiauth",
+    "@self.id/react": "file:../self.id/packages/react",
     "@types/jest": "^27.4.1",
     "axios": "^0.26.1",
+    "dag-jose-utils": "^1.0.0",
+    "did-jwt": "^5.12.4",
     "eslint-config-prettier": "^8.5.0",
     "ethers": "^5.5.4",
     "grommet": "2.21.0",
@@ -26,6 +29,7 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "styled-components": "5.3.3",
+    "torus": "^0.0.3",
     "url": "^0.11.0"
   },
   "devDependencies": {

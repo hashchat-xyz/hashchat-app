@@ -1,6 +1,6 @@
 import { AvatarPlaceholder, useConnection } from "@self.id/framework";
 import { Anchor, Box, Card, Heading, CardHeader } from "grommet";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ConnectButton from "../components/ConnectButton";
 import FormAndSendMsg from "../components/FormAndSendMsg";
 

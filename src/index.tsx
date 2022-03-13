@@ -1,5 +1,5 @@
 import { Provider } from '@self.id/framework'
-import React, { StrictMode } from 'react'
+import React, { useEffect, useState, StrictMode } from 'react'
 import { render } from 'react-dom'
 
 import App from './App'
